@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Greenwood High School | Learn. Grow. Lead.</title>
+<meta name="description" content="Greenwood High School — a nurturing K-12 community committed to academic excellence, creativity and character." />
+<style>
+  /* ---------- Design tokens ---------- */
+  :root {
+    --navy: #0b2545;
+    --navy-2: #13355f;
+    --gold: #f2a71b;
+    --gold-dark: #d98e00;
+    --bg: #f7f9fc;
+    --card: #ffffff;
+    --text: #1c2b3a;
+    --muted: #5b6b7c;
+    --line: #e4eaf2;
+    --radius: 16px;
+    --shadow: 0 12px 34px rgba(11, 37, 69, .09);
+    --shadow-lg: 0 22px 60px rgba(11, 37, 69, .16);
+    --maxw: 1140px;
+    --font: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  }
+
+  /* ---------- Base ---------- */
+  *, *::before, *::after { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; scroll-padding-top: 110px; }
+
+  body {
+    margin: 0;
+    font-family: var(--font);
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  img { max-width: 100%; display: block; }
+  a { color: inherit; text-decoration: none; }
+  h1, h2, h3, h4 { line-height: 1.2; margin: 0 0 .6em; font-weight: 800; letter-spacing: -.02em; }
+  h1 { font-size: clamp(2rem, 5vw, 3.4rem); }
+  h2 { font-size: clamp(1.6rem, 3.4vw, 2.3rem); }
+  h3 { font-size: 1.15rem; }
+  p { margin: 0 0 1rem; }
+
+  .container { width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 0 20px; }
+
+  .section { padding: 84px 0; }
+  .section-head { max-width: 640px; margin: 0 auto 48px; text-align: center; }
+  .section-head p { color: var(--muted); font-size: 1.05rem; margin: 0; }
+
+  .eyebrow {
+    display: inline-block;
+    font-size: .78rem;
+    font-weight: 700;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--gold-dark);
+    background: rgba(242, 167, 27, .13);
+    padding: 6px 14px;
+    border-radius: 999px;
+    margin-bottom: 16px;
+  }
+
+  /* ---------- Buttons ---------- */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 14px 26px;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: .95rem;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: transform .18s ease, box-shadow .18s ease, background .18s ease, color .18s ease;
+  }
+  .btn:hover { transform: translateY(-2px); }
+  .btn-gold { background: var(--gold); color: #201400; box-shadow: 0 10px 24px rgba(242,167,27,.36); }
+  .btn-gold:hover { background: var(--gold-dark); box-shadow: 0 14px 30px rgba(242,167,27,.45); }
+  .btn-navy { background: var(--navy); color: #fff; box-shadow: 0 10px 24px rgba(11,37,69,.25); }
+  .btn-navy:hover { background: var(--navy-2); }
+  .btn-ghost { border-color: rgba(255,255,255,.55); color: #fff; }
+  .btn-ghost:hover { background: rgba(255,255,255,.14); border-color: #fff; }
+
+  /* ---------- Header ---------- */
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255,255,255,.96);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+    transition: box-shadow .25s ease;
+  }
+  .site-header.scrolled { box-shadow: 0 8px 26px rgba(11,37,69,.10); }
+
+  .topbar {
+    background: var(--navy);
+    color: rgba(255,255,255,.85);
+    font-size: .82rem;
+  }
+  .topbar-inner {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 26px;
+    justify-content: center;
+    padding: 8px 20px;
+  }
+  .topbar-inner span { white-space: nowrap; }
+
+  .nav-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding-top: 14px;
+    padding-bottom: 14px;
+  }
+
+  .brand { display: flex; align-items: center; gap: 12px; }
+  .brand-mark {
+    width: 46px; height: 46px;
+    flex: 0 0 46px;
+    border-radius: 13px;
+    background: linear-gradient(140deg, var(--navy), var(--navy-2));
+    display: grid; place-items: center;
+    box-shadow: 0 8px 18px rgba(11,37,69,.22);
+  }
+  .brand-text strong {
+    display: block;
+    font-size: 1.08rem;
+    font-weight: 800;
+    letter-spacing: -.02em;
+    color: var(--navy);
+    line-height: 1.15;
+  }
+  .brand-text small {
+    display: block;
+    font-size: .72rem;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--gold-dark);
+    font-weight: 700;
+  }
+
+  .nav { display: flex; align-items: center; gap: 6px; }
+  .nav a {
+    padding: 9px 14px;
+    border-radius: 999px;
+    font-size: .93rem;
+    font-weight: 600;
+    color: var(--navy);
+    transition: background .18s ease, color .18s ease;
+  }
+  .nav a:hover { background: #eef3f9; color: var(--navy-2); }
+  .nav .nav-cta {
+    background: var(--gold);
+    color: #201400;
+    margin-left: 8px;
+    padding: 11px 20px;
+  }
+  .nav .nav-cta:hover { background: var(--gold-dark); color: #201400; }
+
+  .nav-toggle {
+    display: none;
+    width: 46px; height: 42px;
+    border: 1px solid var(--line);
+    background: #fff;
+    border-radius: 11px;
+    cursor: pointer;
+    padding: 0;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+  }
+  .nav-toggle span {
+    display: block;
+    width: 20px; height: 2px;
+    background: var(--navy);
+    border-radius: 2px;
+    transition: transform .25s ease, opacity .2s ease;
+  }
+  .nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-toggle.open span:nth-child(2) { opacity: 0; }
+  .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    position: relative;
+    color: #fff;
+    background:
+      radial-gradient(900px 460px at 82% 12%, rgba(242,167,27,.30), transparent 62%),
+      radial-gradient(760px 520px at 8% 88%, rgba(64,140,220,.34), transparent 66%),
+      linear-gradient(150deg, #0b2545 0%, #13355f 55%, #1b4a7d 100%);
+    overflow: hidden;
+  }
+  .hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px);
+    background-size: 56px 56px;
+    mask-image: radial-gradient(circle at 50% 40%, #000, transparent 78%);
+    pointer-events: none;
+  }
+  .hero-inner {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1.15fr .85fr;
+    gap: 56px;
+    align-items: center;
+    padding: 88px 20px 96px;
+  }
+  .hero .eyebrow {
+    color: #ffdf9e;
+    background: rgba(255,255,255,.12);
+    border: 1px solid rgba(255,255,255,.18);
+  }
+  .hero h1 { color: #fff; margin-bottom: .5em; }
+  .hero h1 span {
+    background: linear-gradient(100deg, var(--gold), #ffd980);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .hero-lead {
+    font-size: 1.1rem;
+    color: rgba(255,255,255,.86);
+    max-width: 54ch;
+    margin-bottom: 30px;
+  }
+  .hero-btns { display: flex; flex-wrap: wrap; gap: 14px; }
+
+  .hero-card {
+    background: rgba(255,255,255,.10);
+    border: 1px solid rgba(255,255,255,.20);
+    border-radius: 22px;
+    padding: 28px;
+    backdrop-filter: blur(14px);
+    box-shadow: var(--shadow-lg);
+  }
+  .hero-card h3 { color: #fff; font-size: 1rem; letter-spacing: .02em; }
+  .hero-card ul { list-style: none; margin: 0; padding: 0; }
+  .hero-card li {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 11px 0;
+    border-bottom: 1px dashed rgba(255,255,255,.20);
+    font-size: .92rem;
+    color: rgba(255,255,255,.88);
+  }
+  .hero-card li:last-child { border-bottom: 0; }
+  .hero-card li b { color: var(--gold); font-weight: 800; }
+  .hero-card .btn { width: 100%; margin-top: 18px; }
+
+  /* ---------- Stats ---------- */
+  .stats {
+    position: relative;
+    z-index: 3;
+    margin-top: -46px;
+  }
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--line);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+  }
+  .stat {
+    background: #fff;
+    padding: 26px 18px;
+    text-align: center;
+  }
+  .stat b {
+    display: block;
+    font-size: clamp(1.6rem, 3.4vw, 2.1rem);
+    font-weight: 800;
+    color: var(--navy);
+    letter-spacing: -.03em;
+  }
+  .stat span { font-size: .84rem; color: var(--muted); font-weight: 600; }
+
+  /* ---------- About ---------- */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 56px;
+    align-items: center;
+  }
+  .about-art {
+    position: relative;
+    aspect-ratio: 4 / 3.2;
+    border-radius: 24px;
+    background: linear-gradient(150deg, #16395f, #2a6ca8 60%, #4fa3d1);
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+    display: grid;
+    place-items: center;
+  }
+  .about-art::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      radial-gradient(circle at 24% 22%, rgba(255,255,255,.22), transparent 42%),
+      radial-gradient(circle at 78% 78%, rgba(242,167,27,.34), transparent 48%);
+  }
+  .about-art .badge {
+    position: relative;
+    text-align: center;
+    color: #fff;
+    padding: 20px;
+  }
+  .about-art .badge strong { display: block; font-size: 3rem; letter-spacing: -.04em; }
+  .about-art .badge span { font-size: .85rem; letter-spacing: .18em; text-transform: uppercase; opacity: .85; }
+  .about-art .chip {
+    position: absolute;
+    left: 18px;
+    bottom: 18px;
+    background: #fff;
+    color: var(--navy);
+    font-weight: 700;
+    font-size: .82rem;
+    padding: 9px 16px;
+    border-radius: 999px;
+    box-shadow: var(--shadow);
+  }
+
+  .about-list { list-style: none; margin: 22px 0 28px; padding: 0; display: grid; gap: 14px; }
+  .about-list li { display: flex; gap: 12px; align-items: flex-start; color: var(--muted); }
+  .about-list li strong { color: var(--text); display: block; font-weight: 700; }
+  .tick {
+    flex: 0 0 24px;
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    background: rgba(242,167,27,.18);
+    color: var(--gold-dark);
+    display: grid; place-items: center;
+    font-size: .75rem;
+    font-weight: 900;
+    margin-top: 3px;
+  }
+
+  /* ---------- Cards / Programs ---------- */
+  .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 30px 26px;
+    box-shadow: 0 4px 14px rgba(11,37,69,.05);
+    transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+  }
+  .card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-lg);
+    border-color: rgba(242,167,27,.55);
+  }
+  .card .icon {
+    width: 52px; height: 52px;
+    border-radius: 14px;
+    display: grid; place-items: center;
+    font-size: 1.5rem;
+    background: linear-gradient(140deg, rgba(242,167,27,.20), rgba(11,37,69,.10));
+    margin-bottom: 18px;
+  }
+  .card p { color: var(--muted); font-size: .95rem; margin: 0; }
+  .card .meta {
+    margin-top: 18px;
+    font-size: .78rem;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--gold-dark);
+  }
+
+  /* ---------- Events ---------- */
+  .events-wrap { background: #fff; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .events { display: grid; gap: 16px; }
+  .event {
+    display: grid;
+    grid-template-columns: 96px 1fr auto;
+    gap: 24px;
+    align-items: center;
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    transition: border-color .2s ease, transform .2s ease, background .2s ease;
+  }
+  .event:hover { border-color: var(--gold); transform: translateX(4px); background: #fff; }
+  .event-date {
+    text-align: center;
+    background: var(--navy);
+    color: #fff;
+    border-radius: 12px;
+    padding: 10px 6px;
+    line-height: 1.1;
+  }
+  .event-date b { display: block; font-size: 1.5rem; letter-spacing: -.03em; }
+  .event-date span { font-size: .72rem; letter-spacing: .16em; text-transform: uppercase; color: var(--gold); font-weight: 700; }
+  .event h3 { margin: 0 0 4px; font-size: 1.05rem; }
+  .event p { margin: 0; color: var(--muted); font-size: .9rem; }
+  .event .tag {
+    font-size: .74rem;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--navy);
+    background: rgba(11,37,69,.08);
+    padding: 7px 14px;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+
+  /* ---------- Contact ---------- */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: .9fr 1.1fr;
+    gap: 44px;
+    align-items: start;
+  }
+  .info-list { list-style: none; margin: 26px 0 0; padding: 0; display: grid; gap: 18px; }
+  .info-list li { display: flex; gap: 14px; align-items: flex-start; }
+  .info-list .ico {
+    flex: 0 0 42px;
+    width: 42px; height: 42px;
+    border-radius: 12px;
+    background: var(--navy);
+    color: var(--gold);
+    display: grid; place-items: center;
+    font-size: 1.05rem;
+  }
+  .info-list strong { display: block; font-size: .95rem; }
+  .info-list span { color: var(--muted); font-size: .92rem; }
+
+  .form {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    padding: 32px;
+    box-shadow: var(--shadow);
+  }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .field { margin-bottom: 16px; }
+  .field label {
+    display: block;
+    font-size: .82rem;
+    font-weight: 700;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 7px;
+  }
+  .field input, .field select, .field textarea {
+    width: 100%;
+    font: inherit;
+    font-size: .95rem;
+    color: var(--text);
+    padding: 13px 15px;
+    border: 1.5px solid var(--line);
+    border-radius: 12px;
+    background: #fbfcfe;
+    transition: border-color .18s ease, box-shadow .18s ease, background .18s ease;
+  }
+  .field textarea { resize: vertical; min-height: 118px; }
+  .field input:focus, .field select:focus, .field textarea:focus {
+    outline: none;
+    background: #fff;
+    border-color: var(--gold);
+    box-shadow: 0 0 0 4px rgba(242,167,27,.16);
+  }
+  .form .btn { width: 100%; margin-top: 4px; }
+  .form-note { font-size: .82rem; color: var(--muted); margin: 14px 0 0; text-align: center; }
+  .form-success {
+    display: none;
+    margin-top: 16px;
+    padding: 14px 18px;
+    border-radius: 12px;
+    background: rgba(46, 160, 67, .10);
+    border: 1px solid rgba(46, 160, 67, .35);
+    color: #1e6b2e;
+    font-size: .92rem;
+    font-weight: 600;
+    text-align: center;
+  }
+  .form-success.show { display: block; }
+
+  /* ---------- CTA banner ---------- */
+  .cta-band {
+    background: linear-gradient(120deg, var(--navy), var(--navy-2) 60%, #1d558c);
+    color: #fff;
+    border-radius: 24px;
+    padding: 48px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 26px;
+    box-shadow: var(--shadow-lg);
+  }
+  .cta-band h2 { margin: 0 0 6px; color: #fff; }
+  .cta-band p { margin: 0; color: rgba(255,255,255,.82); }
+
+  /* ---------- Footer ---------- */
+  .site-footer { background: #08192f; color: rgba(255,255,255,.72); padding: 60px 0 0; margin-top: 84px; }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1.2fr;
+    gap: 36px;
+    padding-bottom: 44px;
+  }
+  .site-footer h4 {
+    color: #fff;
+    font-size: .82rem;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+  }
+  .site-footer p { font-size: .92rem; }
+  .site-footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+  .site-footer a { font-size: .92rem; transition: color .18s ease; }
+  .site-footer a:hover { color: var(--gold); }
+  .footer-brand { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+  .footer-brand strong { color: #fff; font-size: 1.05rem; }
+  .socials { display: flex; gap: 10px; margin-top: 18px; }
+  .socials a {
+    width: 38px; height: 38px;
+    border-radius: 11px;
+    background: rgba(255,255,255,.08);
+    display: grid; place-items: center;
+    font-size: .8rem;
+    font-weight: 700;
+    color: #fff;
+    transition: background .18s ease, color .18s ease, transform .18s ease;
+  }
+  .socials a:hover { background: var(--gold); color: #201400; transform: translateY(-2px); }
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,.12);
+    padding: 20px 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: space-between;
+    font-size: .84rem;
+  }
+
+  /* ---------- Reveal animation ---------- */
+  .reveal { opacity: 0; transform: translateY(26px); transition: opacity .7s ease, transform .7s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .reveal { opacity: 1; transform: none; transition: none; }
+    * { animation: none !important; transition: none !important; }
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 980px) {
+    .hero-inner { grid-template-columns: 1fr; gap: 40px; padding: 64px 20px 80px; }
+    .about-grid { grid-template-columns: 1fr; gap: 36px; }
+    .cards { grid-template-columns: repeat(2, 1fr); }
+    .contact-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 780px) {
+    .nav-toggle { display: flex; }
+    .nav {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 4px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      box-shadow: 0 18px 34px rgba(11,37,69,.14);
+      padding: 14px 20px 22px;
+      display: none;
+    }
+    .nav.open { display: flex; }
+    .nav a { padding: 13px 16px; border-radius: 12px; }
+    .nav .nav-cta { margin: 8px 0 0; text-align: center; }
+    .nav-wrap { position: relative; }
+    .topbar-inner { font-size: .78rem; gap: 4px 16px; }
+
+    .section { padding: 62px 0; }
+    .event { grid-template-columns: 78px 1fr; gap: 16px; }
+    .event .tag { grid-column: 2; justify-self: start; }
+    .cta-band { padding: 32px 26px; }
+    .form { padding: 24px 20px; }
+    .form-row { grid-template-columns: 1fr; gap: 0; }
+    .footer-grid { grid-template-columns: 1fr; gap: 28px; }
+  }
+
+  @media (max-width: 520px) {
+    .cards { grid-template-columns: 1fr; }
+    .stats-grid { grid-template-columns: 1fr; }
+    .brand-text strong { font-size: .98rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ HEADER ============ -->
+<header class="site-header" id="header">
+  <div class="topbar">
+    <div class="topbar-inner">
+      <span>📍 12 Maple Avenue, Springfield</span>
+      <span>📞 (555) 012-3456</span>
+      <span>✉️ admissions@greenwoodhigh.edu</span>
+    </div>
+  </div>
+
+  <div class="container nav-wrap">
+    <a class="brand" href="#home" aria-label="Greenwood High School home">
+      <span class="brand-mark" aria-hidden="true">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#f2a71b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 10 12 5 2 10l10 5 10-5Z"/>
+          <path d="M6 12v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5"/>
+        </svg>
+      </span>
+      <span class="brand-text">
+        <strong>Greenwood High</strong>
+        <small>Est. 1978</small>
+      </span>
+    </a>
+
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="nav">
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav class="nav" id="nav">
+      <a href="#about">About</a>
+      <a href="#programs">Academics</a>
+      <a href="#events">Events</a>
+      <a href="#contact">Contact</a>
+      <a href="#contact" class="nav-cta">Apply Now</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <!-- ============ HERO ============ -->
+  <section class="hero" id="home">
+    <div class="container hero-inner">
+      <div class="hero-text">
+        <span class="eyebrow">Admissions open · 2025–26</span>
+        <h1>Where curious minds become <span>confident leaders</span></h1>
+        <p class="hero-lead">
+          Greenwood High is a K–12 community of learners, educators and families
+          built on curiosity, kindness and high expectations. Small classes,
+          passionate teachers, and a campus where every child is known by name.
+        </p>
+        <div class="hero-btns">
+          <a class="btn btn-gold" href="#contact">Apply Now</a>
+          <a class="btn btn-ghost" href="#about">Take a Tour</a>
+        </div>
+      </div>
+
+      <aside class="hero-card" aria-label="School quick facts">
+        <h3>Quick Facts</h3>
+        <ul>
+          <li><span>Student–teacher ratio</span><b>12:1</b></li>
+          <li><span>Average class size</span><b>18</b></li>
+          <li><span>University placement</span><b>98%</b></li>
+          <li><span>Clubs &amp; activities</span><b>40+</b></li>
+        </ul>
+        <a class="btn btn-gold" href="#events">See Upcoming Events</a>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ============ STATS ============ -->
+  <section class="stats" aria-label="School statistics">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat"><b>46</b><span>Years of Teaching</span></div>
+        <div class="stat"><b>820</b><span>Students Enrolled</span></div>
+        <div class="stat"><b>68</b><span>Faculty Members</span></div>
+        <div class="stat"><b>98%</b><span>Graduation Rate</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ABOUT ============ -->
+  <section class="section" id="about">
+    <div class="container about-grid">
+      <div class="about-art reveal" aria-hidden="true">
+        <div class="badge">
+          <strong>1978</strong>
+          <span>Since</span>
+        </div>
+        <span class="chip">🎓 46 years of excellence</span>
+      </div>
+
+      <div class="reveal">
+        <span class="eyebrow">About our school</span>
+        <h2>A place to belong, explore and excel</h2>
+        <p>
+          For nearly five decades, Greenwood High has helped students discover
+          what they're good at — and what they care about. Our balanced
+          curriculum blends rigorous academics with the arts, athletics and
+          service learning.
+        </p>
+
+        <ul class="about-list">
+          <li>
+            <span class="tick">✓</span>
+            <span><strong>Personalised learning</strong> Small classes with individual learning plans for every student.</span>
+          </li>
+          <li>
+            <span class="tick">✓</span>
+            <span><strong>Expert faculty</strong> 70% of our teachers hold a master's degree or higher.</span>
+          </li>
+          <li>
+            <span class="tick">✓</span>
+            <span><strong>Modern facilities</strong> Science labs, maker space, library, theatre and sports complex.</span>
+          </li>
+        </ul>
+
+        <a class="btn btn-navy" href="#programs">Explore Academics</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PROGRAMS ============ -->
+  <section class="section" id="programs" style="padding-top:0;">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Academics</span>
+        <h2>Programs for every stage</h2>
+        <p>From first steps to final exams, our curriculum grows with your child.</p>
+      </div>
+
+      <div class="cards">
+        <article class="card reveal">
+          <div class="icon" aria-hidden="true">🧩</div>
+          <h3>Early Years</h3>
+          <p>Play-based learning that builds language, number sense, curiosity and confidence in a warm, safe setting.</p>
+          <div class="meta">Grades Pre-K – 2</div>
+        </article>
+
+        <article class="card reveal">
+          <div class="icon" aria-hidden="true">📚</div>
+          <h3>Primary School</h3>
+          <p>Strong foundations in literacy, mathematics, science and social studies, plus weekly art, music and PE.</p>
+          <div class="meta">Grades 3 – 5</div>
+        </article>
+
+        <article class="card reveal">
+          <div class="icon" aria-hidden="true">🔬</div>
+          <h3>Middle School</h3>
+          <p>Subject specialists, lab work, coding, debate and leadership opportunities that build independence.</p>
+          <div class="meta">Grades 6 – 8</div>
+        </article>
+
+        <article class="card reveal">
+          <div class="icon" aria-hidden="true">🎯</div>
+          <h3>High School</h3>
+          <p>Honours, AP and elective pathways with dedicated college counselling from Grade 10 onwards.</p>
+          <div class="meta">Grades 9 – 12</div>
+        </article>
+
+        <article class="card reveal">
+          <div class="icon" aria-hidden="true">🎨</div>
+          <h3>Arts &amp; Music</h3>
+          <p>Orchestra, choir, theatre, ceramics and digital media — creative practice is part of every timetable.</p>
+          <div class="meta">All Grades</div>
+        </article>
+
+        <article class="card reveal">
+          <div class="icon" aria-hidden="true">⚽</div>
+          <h3>Athletics</h3>
+          <p>Twelve competitive teams, daily PE and a no-cut policy so every student can find a sport they love.</p>
+          <div class="meta">All Grades</div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ EVENTS ============ -->
+  <section class="section events-wrap" id="events">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">What's happening</span>
+        <h2>Upcoming events</h2>
+        <p>Join us on campus — families and prospective students are always welcome.</p>
+      </div>
+
+      <div class="events">
+        <article class="event reveal">
+          <div class="event-date"><b>14</b><span>Mar</span></div>
+          <div>
+            <h3>Open House &amp; Campus Tour</h3>
+            <p>Meet our teachers, tour the campus and see classrooms in action. 9:00 AM – 12:00 PM.</p>
+          </div>
+          <span class="tag">Admissions</span>
+        </article>
+
+        <article class="event reveal">
+          <div class="event-date"><b>22</b><span>Mar</span></div>
+          <div>
+            <h3>Spring Science Fair</h3>
+            <p>Student research projects from Grades 6–12 on display in the Main Hall. 4:00 PM – 7:00 PM.</p>
+          </div>
+          <span class="tag">Academics</span>
+        </article>
+
+        <article class="event reveal">
+          <div class="event-date"><b>05</b><span>Apr</span></div>
+          <div>
+            <h3>Spring Concert &amp; Art Show</h3>
+            <p>An evening of music and visual art presented by our orchestra, choir and studio artists. 6:30 PM.</p>
+          </div>
+          <span class="tag">Arts</span>
+        </article>
+
+        <article class="event reveal">
+          <div class="event-date"><b>18</b><span>Apr</span></div>
+          <div>
+            <h3>Inter-School Athletics Meet</h3>
+            <p>Track and field competition hosted at the Greenwood Sports Complex. 8:00 AM – 5:00 PM.</p>
+          </div>
+          <span class="tag">Sports</span>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONTACT ============ -->
+  <section class="section" id="contact">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Get in touch</span>
+        <h2>Admissions &amp; enquiries</h2>
+        <p>Send us a message and our admissions team will reply within one working day.</p>
+      </div>
+
+      <div class="contact-grid">
+        <div class="reveal">
+          <h3>Visit or call us</h3>
+          <p style="color:var(--muted);">
+            Our admissions office is open Monday to Friday, 8:00 AM – 4:30 PM.
+          </p>
+
+          <ul class="info-list">
+            <li>
+              <span class="ico" aria-hidden="true">📍</span>
+              <span><strong>Address</strong><span>12 Maple Avenue, Springfield, ST 45678</span></span>
+            </li>
+            <li>
+              <span class="ico" aria-hidden="true">📞</span>
+              <span><strong>Phone</strong><span>(555) 012-3456</span></span>
+            </li>
+            <li>
+              <span class="ico" aria-hidden="true">✉️</span>
+              <span><strong>Email</strong><span>admissions@greenwoodhigh.edu</span></span>
+            </li>
+            <li>
+              <span class="ico" aria-hidden="true">🕘</span>
+              <span><strong>Office hours</strong><span>Mon – Fri · 8:00 AM – 4:30 PM</span></span>
+            </li>
+          </ul>
+        </div>
+
+        <form class="form reveal" id="enquiryForm" novalidate>
+          <div class="form-row">
+            <div class="field">
+              <label for="parentName">Parent / Guardian Name</label>
+              <input type="text" id="parentName" name="parentName" placeholder="Jane Doe" required />
+            </div>
+            <div class="field">
+              <label for="studentName">Student Name</label>
+              <input type="text" id="studentName" name="studentName" placeholder="Sam Doe" />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="field">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" placeholder="jane@example.com" required />
+            </div>
+            <div class="field">
+              <label for="phone">Phone</label>
+              <input type="tel" id="phone" name="phone" placeholder="(555) 000-0000" />
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="grade">Grade of Interest</label>
+            <select id="grade" name="grade">
+              <option value="">Select a grade…</option>
+              <option>Pre-K – Grade 2</option>
+              <option>Grades 3 – 5</option>
+              <option>Grades 6 – 8</option>
+              <option>Grades 9 – 12</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" placeholder="Tell us a little about your child and what you'd like to know."></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-gold">Send Enquiry</button>
+          <p class="form-note">We respect your privacy. Your details are never shared.</p>
+          <div class="form-success" id="formSuccess" role="status">
+            ✅ Thank you! Your enquiry has been received — we'll be in touch shortly.
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+<!-- ============ CTA BAND ============ -->
+  <section class="container" style="padding-bottom: 8px;">
+    <div class="cta-band reveal">
+      <div>
+        <h2>Ready to see Greenwood in person?</h2>
+        <p>Book a personalised campus tour with our admissions team.</p>
+      </div>
+      <a class="btn btn-gold" href="#contact">Book a Tour</a>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">
+          <span class="brand-mark" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#f2a71b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 10 12 5 2 10l10 5 10-5Z"/>
+              <path d="M6 12v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5"/>
+            </svg>
+          </span>
+          <strong>Greenwood High School</strong>
+        </div>
+        <p>A K–12 community where curiosity, kindness and high expectations shape lifelong learners.</p>
+        <div class="socials" aria-label="Social media">
+          <a href="#" aria-label="Facebook">f</a>
+          <a href="#" aria-label="Instagram">ig</a>
+          <a href="#" aria-label="YouTube">yt</a>
+          <a href="#" aria-label="LinkedIn">in</a>
+        </div>
+      </div>
+
+      <div>
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#programs">Academics</a></li>
+          <li><a href="#events">Events</a></li>
+          <li><a href="#contact">Admissions</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="#">School Calendar</a></li>
+          <li><a href="#">Parent Portal</a></li>
+          <li><a href="#">Student Handbook</a></li>
+          <li><a href="#">Careers</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li>12 Maple Avenue<br />Springfield, ST 45678</li>
+          <li><a href="tel:+15550123456">(555) 012-3456</a></li>
+          <li><a href="mailto:admissions@greenwoodhigh.edu">admissions@greenwoodhigh.edu</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© <span id="year">2025</span> Greenwood High School. All rights reserved.</span>
+      <span>Privacy Policy · Terms of Use · Accessibility</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  /* ---------- Mobile navigation ---------- */
+  const navToggle = document.getElementById('navToggle');
+  const nav = document.getElementById('nav');
+
+  navToggle.addEventListener('click', () => {
+    const isOpen = nav.classList.toggle('open');
+    navToggle.classList.toggle('open', isOpen);
+    navToggle.setAttribute('aria-expanded', String(isOpen));
+  });
+
+  /* Close menu when a link is clicked */
+  nav.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      nav.classList.remove('open');
+      navToggle.classList.remove('open');
+      navToggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  /* ---------- Header shadow on scroll ---------- */
+  const header = document.getElementById('header');
+  const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 12);
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  /* ---------- Reveal on scroll ---------- */
+  const revealEls = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+    revealEls.forEach(el => io.observe(el));
+  } else {
+    revealEls.forEach(el => el.classList.add('visible'));
+  }
+
+  /* ---------- Enquiry form ---------- */
+  const form = document.getElementById('enquiryForm');
+  const success = document.getElementById('formSuccess');
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const parentName = form.parentName.value.trim();
+    const email = form.email.value.trim();
+    const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+    if (!parentName || !emailOk) {
+      if (!parentName) form.parentName.focus();
+      else form.email.focus();
+      alert('Please enter your name and a valid email address.');
+      return;
+    }
+
+    success.classList.add('show');
+    form.reset();
+    setTimeout(() => success.classList.remove('show'), 6000);
+  });
+
+  /* ---------- Footer year ---------- */
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>
